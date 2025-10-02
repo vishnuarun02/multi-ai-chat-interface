@@ -1,8 +1,36 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## AI Chatbot with Multiple Models
+
+This chatbot supports multiple AI models:
+- **GPT-4** (OpenAI)
+- **Grok** (xAI)
+- **Deepseek**
+- Claude Sonnet 4 (coming soon)
+- Gemini (coming soon)
+
+## Setup
+
+1. Install dependencies:
+```bash
+npm install
+```
+
+2. Create a `.env.local` file in the root directory and add your API keys:
+```bash
+cp .env.example .env.local
+```
+
+Then edit `.env.local` with your actual API keys:
+```
+OPENAI_API_KEY=your-openai-api-key
+XAI_API_KEY=your-xai-api-key
+DEEPSEEK_API_KEY=your-deepseek-api-key
+```
+
 ## Getting Started
 
-First, run the development server:
+Run the development server:
 
 ```bash
 npm run dev
@@ -29,8 +57,33 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Option 1: Deploy Everything to Vercel (Recommended)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Since this is a Next.js app with API routes, you can deploy the entire application (frontend + backend) to Vercel:
+
+1. Push your code to GitHub (make sure `.env.local` is in `.gitignore`)
+2. Connect your repository to [Vercel](https://vercel.com)
+3. Add your environment variables in Vercel's project settings:
+   - `OPENAI_API_KEY`
+   - `XAI_API_KEY`
+   - `DEEPSEEK_API_KEY`
+4. Deploy!
+
+### Option 2: Separate Frontend (Vercel) and Backend (Railway)
+
+If you prefer to separate concerns:
+
+**Frontend (Vercel):**
+- Deploy the Next.js app to Vercel
+- Set an environment variable `NEXT_PUBLIC_API_URL` pointing to your Railway backend
+
+**Backend (Railway):**
+- Extract the API routes to a standalone Express.js or similar backend
+- Deploy to Railway with the API keys as environment variables
+- Enable CORS to allow requests from your Vercel frontend
+
+**Note:** For this app, Option 1 is simpler and recommended since Next.js API routes handle both frontend and backend efficiently. You don't need a separate backend unless you have specific requirements (like connecting to a database, running long-running processes, etc.).
+
+Check out the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
